@@ -27,8 +27,9 @@
 (defn -main []
   (let [first-bucket (:Name (first (:Buckets (list-my-buckets))))]
     (prn "first-bucket:" first-bucket)
-    (put-file first-bucket "demo.jpg")
+    (prn "Edit code, and uncomment the following line to put a file into " first-bucket)
+    ;; (put-file first-bucket "demo.jpg")
     ;; If not prefix, then recursive.
-    (mapv #(prn (:Size %) (:Key %))
-         (:Contents (aws/invoke s3 {:op :ListObjects
-                                    :request {:Bucket first-bucket}})))))
+    (mapv #(prn "The first object in the bucket: " (:Size %) (:Key %))
+          (take 1 (:Contents (aws/invoke s3 {:op :ListObjects
+                                             :request {:Bucket first-bucket}}))))))
