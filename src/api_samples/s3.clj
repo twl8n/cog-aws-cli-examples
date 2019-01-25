@@ -1,6 +1,7 @@
 (ns api_samples.s3
   (:require [clojure.java.io :as io]
-            [cognitect.aws.client.api :as aws])
+            [cognitect.aws.client.api :as aws]
+            )
   (:gen-class))
 
 ;; You must have a client
@@ -27,7 +28,7 @@
   (let [first-bucket (:Name (first (:Buckets (list-my-buckets))))]
     (prn "first-bucket:" first-bucket)
     (put-file first-bucket "demo.jpg")
-    ;; This example has no prefix for the bucket, and will do a recursive list of objects.
+    ;; If not prefix, then recursive.
     (mapv #(prn (:Size %) (:Key %))
          (:Contents (aws/invoke s3 {:op :ListObjects
                                     :request {:Bucket first-bucket}})))))

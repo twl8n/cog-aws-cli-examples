@@ -3,12 +3,33 @@ chmod +x linux-install-1.10.0.411.sh
 sudo ./linux-install-1.10.0.411.sh
 
 A simple S3 example is in src/api_samples/s3.clj.
+Run the simple example using a minimal dependencies file, deps.edn.s3.
 
-Run the simple example using a minimal deps.edn file (deps.edn.s3):
-`clojure -Sdeps deps.edn.s3 -m api_samples.s3`
+```
+cp deps.edn.s3 deps.edn
+clojure -m api_samples.s3
+````
+
 
 Launch a repl (using the standard deps.edn):
 `clj -A:nrepl`
+
+----
+Error:
+
+`clojure -Sdeps deps.edn.s3 -m api_samples.s3`
+
+Error building classpath. Don't know how to create ISeq from: clojure.lang.Symbol
+java.lang.IllegalArgumentException: Don't know how to create ISeq from: clojure.lang.Symbol
+	at clojure.lang.RT.seqFrom(RT.java:553)
+	at clojure.lang.RT.seq(RT.java:533)
+	at clojure.core$seq__5387.invokeStatic(core.clj:137)
+...
+
+Solution:
+Unknown
+
+----
 
 Error: 
 java.io.FileNotFoundException: Could not locate cognitect/aws/client/api__init.class, cognitect/aws/client/api.clj or cognitect/aws/client/api.cljc on classpath.
